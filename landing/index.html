@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fort Wayne Mesh</title>
+  <meta name="description" content="FWA Mesh is the Fort Wayne live map and observer network for the community-built MeshCore mesh. Part of NEIMesh, the Northeast Indiana MeshCore co-op, alongside the tri-state OKI Mesh.">
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <nav>
+        <a class="brand" href="./">FWA <span>Mesh</span></a>
+        <a data-analyzer="/#/live" href="#">Live map</a>
+        <a href="#get-started">Get started</a>
+        <a href="#settings">Settings</a>
+        <a href="join.html">Observers</a>
+        <a href="https://neimesh.net/">NEIMesh ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="wrap">
+      <p class="kicker">Fort Wayne · Allen County · 910.525 MHz</p>
+      <h1>Off-grid messaging, built by Fort Wayne neighbors.</h1>
+      <p class="lead">MeshCore is an off-grid messaging and telemetry network that keeps working when the internet
+        and cell service don't. Small, low-power LoRa radios pass messages from node to node. There are no towers,
+        no subscriptions, and no single point of failure.
+        <strong>FWA Mesh is the Fort Wayne window into that network</strong>: a live map and packet analyzer fed by
+        local observers, supporting the <a href="https://neimesh.net/">NEIMesh</a> co-op that's building coverage across
+        Northeast Indiana.</p>
+      <a class="btn primary" data-analyzer="/#/live" href="#">Watch the live map</a>
+      <a class="btn ghost" href="https://neimesh.net/">Visit NEIMesh.net</a>
+      <a class="btn ghost" href="#get-started">Get on the mesh</a>
+
+      <div class="stats" id="stats" hidden>
+        <div><b data-stat="nodes">–</b><span>Nodes heard</span></div>
+        <div><b data-stat="repeaters">–</b><span>Repeaters</span></div>
+        <div><b data-stat="observers">–</b><span>Observers</span></div>
+        <div><b data-stat="pkts">–</b><span>Packets / 24h</span></div>
+      </div>
+      <p class="stats-note" id="stats-note" hidden>Live from the FWA Mesh analyzer.</p>
+    </div>
+  </div>
+
+  <main class="wrap">
+
+    <section id="community">
+      <p class="eyebrow">How it grows</p>
+      <h2>A network the community carries, one node at a time.</h2>
+      <p class="intro">Nobody owns this network, and that's the point. Every radio someone puts on the air relays for
+        everyone else, so each new node makes the whole mesh a little stronger. Neighbors, ham operators, and
+        tinkerers are building it out together: Allen County first, then the rest of the northeast Indiana counties.</p>
+      <div class="grid steps">
+        <div class="card">
+          <h3>Listen and talk</h3>
+          <p>Pick up an inexpensive companion radio, pair it with your phone, and join the local chat. Every
+            companion that shows up helps prove where coverage reaches.</p>
+        </div>
+        <div class="card">
+          <h3>Add a repeater</h3>
+          <p>Repeaters are the backbone. Anyone can add one; it doesn't have to be owned or managed by anybody
+            else. High spots such as rooftops, towers, and water towers make the biggest difference.</p>
+        </div>
+        <div class="card">
+          <h3>Use the same settings</h3>
+          <p>A shared mesh only works if everyone is on the same radio settings. Match the
+            <a href="#settings">recommended settings</a> so your node can hear and relay everyone else's.</p>
+        </div>
+        <div class="card">
+          <h3>Feed the map</h3>
+          <p>An observer forwards what its radio hears to this site, so everyone can see coverage, paths, and
+            gaps. More observers in more places give us a truer picture. <a href="join.html">Run an observer →</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="where">
+      <p class="eyebrow">Where we fit</p>
+      <h2>Local tools, regional network.</h2>
+      <p class="intro">FWA Mesh is a local resource for the Fort Wayne area. It's one piece of a much bigger,
+        community-run effort, and all three use the same frequency and settings, so the mesh is one network.</p>
+      <div class="fit">
+        <div class="rings" aria-hidden="true">
+          <div class="ring oki"><span>OKI Mesh<br>IN · OH · KY</span></div>
+          <div class="ring nei"><span>NEIMesh<br>NE Indiana</span></div>
+          <div class="ring fwa"><span>FWA</span></div>
+        </div>
+        <div class="tiers">
+          <div class="tier fwa">
+            <h3>FWA Mesh <span class="scope">· fwamesh.net · Fort Wayne</span></h3>
+            <p>This site. A live map, packet analyzer, and MQTT observer feed for the Fort Wayne area, so the
+              community can watch the mesh grow in real time. <a data-analyzer="/#/live" href="#">Open the live map →</a></p>
+          </div>
+          <div class="tier nei">
+            <h3>NEIMesh <span class="scope">· neimesh.net · Northeast Indiana</span></h3>
+            <p>The Northeast Indiana MeshCore co-op. The local home for recommended node settings, repeater
+              region configuration, and local channels, and the group coordinating build-out across Allen County
+              and the northeast counties. <a href="https://neimesh.net/">Visit NEIMesh.net →</a>
+              &nbsp;<a href="https://neimesh.net/hello-world/">How you can help →</a></p>
+          </div>
+          <div class="tier oki">
+            <h3>OKI Mesh <span class="scope">· okimesh.org · Indiana, Ohio, Kentucky</span></h3>
+            <p>A much larger volunteer-built, community-owned alliance spanning the tri-state region, with
+              getting-started guides, regional coverage maps, docs, and a Discord. NEIMesh is one of its regional
+              partners. <a href="https://okimesh.org/">Visit okimesh.org →</a>
+              &nbsp;<a href="https://okimesh.org/partners/">Regional partners →</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="indiana">
+      <p class="eyebrow">Across Indiana</p>
+      <h2>HOOP: the statewide signpost.</h2>
+      <p class="intro"><strong>HOOP, the Hoosier Off-Grid Open Playbook</strong>, is a community-built guide to off-grid
+        radio in Indiana: MeshCore, Meshtastic, GMRS, ham radio, and Reticulum. Instead of inventing its own rules, it
+        gathers settings, nets, maps, and projects from the people and projects that maintain each one, links every
+        item to its source, and refreshes its data automatically. It's open source, and contributions and forks are
+        welcome.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>HOOP live site</h3>
+          <p>A statewide map of MeshCore repeaters, weather alerts, and nets, with a card for each radio system.</p>
+          <a class="more" href="https://mutiny19.github.io/hoop/">Open HOOP →</a>
+        </div>
+        <div class="card">
+          <h3>MeshCore start guide</h3>
+          <p>Five steps from a new radio to a first message, each linking to MeshCore's own instructions.</p>
+          <a class="more" href="https://mutiny19.github.io/hoop/meshcore/">Start with HOOP →</a>
+        </div>
+        <div class="card">
+          <h3>Nets and live views</h3>
+          <p>The weekly <code>#meshnet</code> check-in, every net by day, and where to watch Indiana MeshCore
+            traffic live.</p>
+          <a class="more" href="https://mutiny19.github.io/hoop/meshnet/">#meshnet →</a>
+          &nbsp;<a class="more" href="https://mutiny19.github.io/hoop/live/">Live views →</a>
+        </div>
+        <div class="card">
+          <h3>Project and data</h3>
+          <p>The source and the open JSON data behind every page: repeaters, nets, channels, settings, observers, and
+            more, refreshed by scheduled GitHub Actions jobs.</p>
+          <a class="more" href="https://github.com/mutiny19/hoop">GitHub repo →</a>
+          &nbsp;<a class="more" href="https://github.com/mutiny19/hoop/tree/main/data">Data →</a>
+        </div>
+      </div>
+      <p class="note">HOOP is an independent community project. It doesn't speak for any network, and neither does
+        FWA Mesh. Statewide conversation happens on the <a href="https://discord.gg/2uwyceSF37">Indiana Mesh
+        Discord</a>.</p>
+    </section>
+
+    <section id="get-started">
+      <p class="eyebrow">Get started</p>
+      <h2>Get on the mesh in an afternoon.</h2>
+      <div class="grid steps">
+        <div class="card">
+          <h3>Get a radio</h3>
+          <p>Almost any MeshCore-compatible LoRa board for the US 915 MHz band works: Heltec V3 or T114,
+            RAK WisBlock (great for solar repeaters), Seeed T1000-E, and more.</p>
+        </div>
+        <div class="card">
+          <h3>Flash MeshCore</h3>
+          <p>Use the <a href="https://flasher.meshcore.co.uk/">MeshCore web flasher</a>. Choose <em>Companion</em>
+            for a personal radio or <em>Repeater</em> for a fixed high site, then apply the
+            <a href="#settings">settings below</a>.</p>
+        </div>
+        <div class="card">
+          <h3>Say hello</h3>
+          <p>Send an advert, then join <code>#nei</code> and say hi. If an observer hears you, your node shows up on
+            the <a data-analyzer="/#/nodes" href="#">nodes page</a> within a few minutes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="settings">
+      <p class="eyebrow">Recommended settings</p>
+      <h2>Same settings, one network.</h2>
+      <p class="intro">These follow NEIMesh's recommended node settings so every node in the area can talk to every
+        other. They may change as the network grows. <a href="https://neimesh.net/">NEIMesh.net</a> always has the
+        current list.</p>
+      <div class="settings">
+        <div class="card">
+          <h3>Radio</h3>
+          <table>
+            <tr><th>Preset</th><td>Standard USA / Canada</td></tr>
+            <tr><th>Frequency</th><td>910.525 MHz</td></tr>
+            <tr><th>Bandwidth</th><td>62.5 kHz</td></tr>
+            <tr><th>Spreading factor</th><td>7</td></tr>
+            <tr><th>Coding rate</th><td>5</td></tr>
+            <tr><th>Path hash size</th><td><strong>2-byte</strong></td></tr>
+          </table>
+        </div>
+        <div class="card">
+          <h3>Repeaters</h3>
+          <p>Recommended CLI settings:</p>
+<pre><code>set agc.reset.interval 500
+set multi.acks 1
+set loop.detect minimal</code></pre>
+          <p style="margin-top:14px">Region settings. These aren't enforced yet, but the Fort Wayne weather-alert
+            bot already scopes messages to <code>fwa</code>:</p>
+<pre><code>region put us-in
+region put nei us-in
+region put fwa nei
+region allowf *</code></pre>
+        </div>
+        <div class="card">
+          <h3>Local channels</h3>
+          <ul class="chans">
+            <li><code>#nei</code> Northeast Indiana's public chat. Use this instead of Public, which gets flooded by
+              traffic from far away.</li>
+            <li><code>#fwrc</code> Fort Wayne Radio Club</li>
+            <li><code>#weather-alert</code> NWS alerts for Allen County</li>
+            <li><code>#bot</code> talk to @fwabot</li>
+            <li><code>#test</code> send "test" for an automatic reply</li>
+            <li><code>#jokes</code> a daily joke</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="band">
+      <div>
+        <h2>Help fill in the map.</h2>
+        <p>Have a high spot, a spare board, or an always-on computer? Put up a repeater, run an observer, or come talk
+          to us on the mesh in <code>#nei</code>.</p>
+      </div>
+      <div>
+        <a class="btn primary" href="join.html">Become an observer</a>
+        <a class="btn ghost" href="https://neimesh.net/hello-world/">How you can help</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap cols">
+      <div>
+        <div class="motto">When other means fail, the mesh still carries the message.</div>
+        <div>FWA Mesh is a volunteer, local resource for the Fort Wayne area and is not affiliated with MeshCore.</div>
+      </div>
+      <div>
+        <strong>Fort Wayne</strong>
+        <ul>
+          <li><a data-analyzer="/#/live" href="#">Live map</a></li>
+          <li><a data-analyzer="/#/nodes" href="#">Nodes</a></li>
+          <li><a href="join.html">Become an observer</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong>Northeast Indiana</strong>
+        <ul>
+          <li><a href="https://neimesh.net/">NEIMesh.net</a></li>
+          <li><a href="https://neimesh.net/hello-world/">How you can help</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong>Indiana</strong>
+        <ul>
+          <li><a href="https://mutiny19.github.io/hoop/">HOOP live site</a></li>
+          <li><a href="https://github.com/mutiny19/hoop">HOOP project</a> · <a href="https://github.com/mutiny19/hoop/tree/main/data">data</a></li>
+          <li><a href="https://discord.gg/2uwyceSF37">Indiana Mesh Discord</a></li>
+        </ul>
+      </div>
+      <div>
+        <strong>Tri-state region</strong>
+        <ul>
+          <li><a href="https://okimesh.org/">OKI Mesh</a></li>
+          <li><a href="https://okimesh.org/getting-started/">OKI getting started</a></li>
+          <li><a href="https://discord.okimesh.org">OKI Discord</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Live counts from the analyzer. Hidden entirely if it can't be reached (e.g. CORS on LAN access).
+    (function () {
+      var base = (window.FWAMESH && window.FWAMESH.analyzerUrl) || "";
+      fetch(base + "/api/stats", { cache: "no-store" })
+        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+        .then(function (d) {
+          var f = function (n) { return (n == null) ? "–" : Number(n).toLocaleString(); };
+          var v = { nodes: d.totalNodes, repeaters: d.counts && d.counts.repeaters,
+                    observers: d.totalObservers, pkts: d.packetsLast24h };
+          document.querySelectorAll("[data-stat]").forEach(function (e) { e.textContent = f(v[e.getAttribute("data-stat")]); });
+          document.getElementById("stats").hidden = false;
+          document.getElementById("stats-note").hidden = false;
+        })
+        .catch(function () {});
+    })();
+  </script>
+</body>
+</html>

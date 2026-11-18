@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Become an Observer</title>
+  <meta name="description" content="How to connect a MeshCore observer to the Fort Wayne Mesh MQTT broker.">
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <nav>
+        <a class="brand" href="./">FWA <span>Mesh</span></a>
+        <a data-analyzer="/#/live" href="#">Live map</a>
+        <a href="./#get-started">Get started</a>
+        <a href="./#settings">Settings</a>
+        <a href="join.html">Observers</a>
+        <a href="https://neimesh.net/">NEIMesh ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="wrap">
+      <p class="kicker">Feed the map</p>
+      <h1>Become an observer</h1>
+      <p>An observer listens to the mesh and forwards every packet it hears to the FWA Mesh analyzer over MQTT,
+        so the whole community can see coverage, paths, and gaps. It doesn't change how your repeater behaves on
+        the air.</p>
+    </div>
+  </div>
+
+  <main class="wrap doc">
+    <section style="padding-top:8px">
+      <h2>What you need</h2>
+      <ul>
+        <li>A MeshCore repeater (or observer) running firmware built with <code>MESH_PACKET_LOGGING=1</code>.
+          LetsMesh token auth (optional, below) needs v1.8.0 or newer.</li>
+        <li>An always-on Linux or macOS machine (a Raspberry Pi is fine) with Python 3.11+, connected to the
+          repeater over USB.</li>
+        <li>Internet access from that machine to <code data-mqtt-host>mqtt.fwamesh.net</code> port
+          <code data-mqtt-port>1883</code>.</li>
+      </ul>
+
+      <h2>Broker settings</h2>
+      <table>
+        <tr><th>Server</th><td><code data-mqtt-host>mqtt.fwamesh.net</code></td></tr>
+        <tr><th>Port</th><td><code data-mqtt-port>1883</code></td></tr>
+        <tr><th>Transport</th><td>TCP, no TLS</td></tr>
+        <tr><th>Auth</th><td>None</td></tr>
+        <tr><th>IATA region code</th><td>Your area's code from the list below (Fort Wayne is <code>FWA</code>)</td></tr>
+      </table>
+
+      <h2>Region codes</h2>
+      <p>Use the code for the area your observer is in. Observers using a code not on this list are ignored.
+        Need a new area added? Get in touch.</p>
+      <table>
+        <tr><th>Indiana</th><td><code>FWA</code> Fort Wayne · <code>SBN</code> South Bend · <code>EKM</code> Elkhart ·
+          <code>ASW</code> Warsaw · <code>GUS</code> Peru / Grissom · <code>OKK</code> Kokomo · <code>MIE</code> Muncie ·
+          <code>MQJ</code> Indianapolis East (Mt. Comfort) · <code>IND</code> Indianapolis · <code>LAF</code> Lafayette</td></tr>
+        <tr><th>Northwest Ohio</th><td><code>TOL</code> Toledo · <code>AOH</code> Lima · <code>FDY</code> Findlay ·
+          <code>DFI</code> Defiance</td></tr>
+        <tr><th>Southern Michigan</th><td><code>AZO</code> Kalamazoo · <code>BTL</code> Battle Creek ·
+          <code>JXN</code> Jackson</td></tr>
+      </table>
+
+      <h2>Setup with meshcoretomqtt</h2>
+      <ol>
+        <li>Install <a href="https://github.com/Cisien/meshcoretomqtt">meshcoretomqtt</a> on the machine attached
+          to your repeater:
+          <pre><code>curl -fsSL https://raw.githubusercontent.com/Cisien/meshcoretomqtt/main/install.sh | sudo bash</code></pre>
+        </li>
+        <li>Create <code>/etc/mctomqtt/config.d/99-user.toml</code>:
+<pre><code>[general]
+iata = "FWA"               # your area's code from the list above
+
+[serial]
+ports = ["/dev/ttyACM0"]   # or /dev/ttyUSB0
+
+[[broker]]
+name = "fwamesh"
+enabled = true
+server = "<span data-mqtt-host>mqtt.fwamesh.net</span>"
+port = <span data-mqtt-port>1883</span>
+transport = "tcp"
+
+[broker.tls]
+enabled = false
+
+[broker.auth]
+method = "none"</code></pre>
+        </li>
+        <li>Restart the service: <code>sudo systemctl restart mctomqtt</code>, then check it with
+          <code>journalctl -u mctomqtt -f</code>.</li>
+        <li>Within a few minutes your observer should appear on the
+          <a data-analyzer="/#/observers" href="#">observers page</a> under your region code.</li>
+      </ol>
+
+      <h2>Also feeding LetsMesh?</h2>
+      <p>You can publish to FWA Mesh and LetsMesh at the same time. Add a second <code>[[broker]]</code> block
+        to the same file:</p>
+<pre><code>[[broker]]
+name = "letsmesh-us"
+enabled = true
+server = "mqtt-us-v1.letsmesh.net"
+port = 443
+transport = "websockets"
+
+[broker.tls]
+enabled = true
+
+[broker.auth]
+method = "token"
+audience = "mqtt-us-v1.letsmesh.net"</code></pre>
+
+      <p class="note">Hiding your node: rename it to start with 🚫 and send an advert. It will be hidden from
+        this site's map and node list.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap cols">
+      <div>
+        <div class="motto">When other means fail, the mesh still carries the message.</div>
+        <div>FWA Mesh is a volunteer, local resource for the Fort Wayne area and is not affiliated with MeshCore.</div>
+      </div>
+      <div>
+        <strong>Regional</strong>
+        <ul>
+          <li><a href="https://neimesh.net/">NEIMesh.net</a> (Northeast Indiana)</li>
+          <li><a href="https://okimesh.org/">OKI Mesh</a> (Indiana, Ohio, Kentucky)</li>
+          <li><a href="https://mutiny19.github.io/hoop/live/">HOOP: Indiana live views</a> (<a href="https://github.com/mutiny19/hoop">project</a>)</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

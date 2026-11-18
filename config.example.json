@@ -1,0 +1,214 @@
+{
+  "_comment": "Example CoreScope config for FWA Mesh. Copy to corescope-data/config.json, fill in apiKey, the CARTO key and trustedProxies, then `docker compose up -d`. All other keys are documented in CoreScope's config.example.json (inside the image at /app/config.example.json).",
+  "port": 3000,
+  "apiKey": "CHANGE-ME-16+-random-chars (openssl rand -hex 16)",
+  "observerIATAWhitelist": [
+    "FWA",
+    "SBN",
+    "EKM",
+    "ASW",
+    "GUS",
+    "OKK",
+    "MIE",
+    "MQJ",
+    "IND",
+    "LAF",
+    "TOL",
+    "AOH",
+    "FDY",
+    "DFI",
+    "AZO",
+    "BTL",
+    "JXN"
+  ],
+  "retention": {
+    "nodeDays": 7,
+    "observerDays": 14,
+    "packetDays": 90
+  },
+  "branding": {
+    "siteName": "Fort Wayne Mesh",
+    "tagline": "Live MeshCore network for Fort Wayne and surrounding areas",
+    "homeUrl": "https://fwamesh.net"
+  },
+  "map": {
+    "tiles": {
+      "darkDefault": "carto-dark",
+      "lightDefault": "carto-dark",
+      "providers": {
+        "carto": {
+          "enabled": true,
+          "key": "YOUR-CARTO-KEY (free: https://carto.com/basemaps/apikey)",
+          "domain": ""
+        },
+        "opentopomap": {
+          "enabled": true
+        },
+        "usgs": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "home": {
+    "heroTitle": "Fort Wayne Mesh",
+    "heroSubtitle": "Find your node to start monitoring it.",
+    "steps": [
+      {
+        "emoji": "📡",
+        "title": "Connect",
+        "description": "Join the Fort Wayne MeshCore mesh"
+      },
+      {
+        "emoji": "🔍",
+        "title": "Monitor",
+        "description": "Watch packets flow in real time"
+      },
+      {
+        "emoji": "📊",
+        "title": "Analyze",
+        "description": "Understand coverage and network health"
+      }
+    ],
+    "checklist": [
+      {
+        "question": "How do I add my node?",
+        "answer": "Send an advert, then search for your node name or paste your public key."
+      },
+      {
+        "question": "How do I become an observer?",
+        "answer": "See the observer guide at https://fwamesh.net/join.html"
+      }
+    ],
+    "footerLinks": [
+      {
+        "label": "📦 Packets",
+        "url": "#/packets"
+      },
+      {
+        "label": "🗺️ Network Map",
+        "url": "#/map"
+      },
+      {
+        "label": "🔴 Live",
+        "url": "#/live"
+      },
+      {
+        "label": "📡 All Nodes",
+        "url": "#/nodes"
+      },
+      {
+        "label": "💬 Channels",
+        "url": "#/channels"
+      }
+    ]
+  },
+  "mqttSources": [
+    {
+      "name": "local",
+      "broker": "mqtt://localhost:1883",
+      "topics": [
+        "meshcore/#"
+      ],
+      "region": "FWA"
+    }
+  ],
+  "channelKeys": {
+    "Public": "8b3387e9c5cdea6ac9e5edbaa115cd72"
+  },
+  "hashChannels": [],
+  "hashRegions": [],
+  "defaultRegion": "FWA",
+  "regions": {
+    "FWA": "Fort Wayne, IN",
+    "SBN": "South Bend, IN",
+    "EKM": "Elkhart, IN",
+    "ASW": "Warsaw, IN",
+    "GUS": "Peru / Grissom, IN",
+    "OKK": "Kokomo, IN",
+    "MIE": "Muncie, IN",
+    "MQJ": "Indianapolis East (Mt. Comfort), IN",
+    "IND": "Indianapolis, IN",
+    "LAF": "Lafayette, IN",
+    "TOL": "Toledo, OH",
+    "AOH": "Lima, OH",
+    "FDY": "Findlay, OH",
+    "DFI": "Defiance, OH",
+    "AZO": "Kalamazoo, MI",
+    "BTL": "Battle Creek, MI",
+    "JXN": "Jackson, MI"
+  },
+  "mapDefaults": {
+    "center": [
+      41.0793,
+      -85.1394
+    ],
+    "zoom": 8
+  },
+  "timestamps": {
+    "defaultMode": "ago",
+    "timezone": "local",
+    "formatPreset": "iso"
+  },
+  "webSocket": {
+    "maxConnsPerIP": 0,
+    "upgradesPerMinPerIP": 30,
+    "trustedProxies": [
+      "REVERSE-PROXY-IP"
+    ],
+    "deny": []
+  },
+  "analytics": {
+    "loraPreset": {
+      "freq": 910525000,
+      "bw": 62.5,
+      "sf": 7,
+      "cr": 5
+    }
+  },
+  "regionQuickPicks": [
+    {
+      "name": "Indiana",
+      "description": "Fort Wayne plus northern, central and east Indiana observers.",
+      "regions": [
+        "FWA",
+        "SBN",
+        "EKM",
+        "ASW",
+        "GUS",
+        "OKK",
+        "MIE",
+        "MQJ",
+        "IND",
+        "LAF"
+      ]
+    },
+    {
+      "name": "NW Ohio",
+      "description": "Toledo, Lima, Findlay and Defiance observers.",
+      "regions": [
+        "TOL",
+        "AOH",
+        "FDY",
+        "DFI"
+      ]
+    },
+    {
+      "name": "S Michigan",
+      "description": "Kalamazoo, Battle Creek and Jackson observers.",
+      "regions": [
+        "AZO",
+        "BTL",
+        "JXN"
+      ]
+    }
+  ],
+  "liveMap": {
+    "propagationBufferMs": 3000,
+    "maxNodes": 2000
+  },
+  "corsAllowedOrigins": [
+    "https://fwamesh.net",
+    "https://www.fwamesh.net"
+  ]
+}

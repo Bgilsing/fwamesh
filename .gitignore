@@ -1,0 +1,13 @@
+# Live data and secrets: never commit
+corescope-data/
+*.db
+*.db-*
+.env
+
+# Generated from the CoreScope image by overrides/build-supervisord-override.sh
+overrides/supervisord-no-caddy.conf
+
+# Local-only notes and backups
+OPERATIONS.md
+landing.bak-*/
+*.bak
