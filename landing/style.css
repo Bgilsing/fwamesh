@@ -143,3 +143,16 @@ footer li { margin: 3px 0; }
 .chan-bar i { display: block; height: 100%; background: var(--accent); border-radius: 4px; }
 .chan-meta { grid-area: meta; font-size: .82rem; color: var(--hero-muted); }
 .chan-meta b { color: var(--hero-text); font-variant-numeric: tabular-nums; }
+
+/* Gear page */
+.disclosure { margin: 28px 0 0; }
+main.doc .gear-section h2 { margin-top: 0; }
+.gear-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.gear-card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; text-decoration: none; color: var(--text); transition: border-color .15s, transform .15s; }
+.gear-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.gear-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.gear-card h3 { margin: 0 0 6px; }
+.gear-card p { margin: 0 0 14px; color: var(--muted); flex: 1; }
+.gear-tag { align-self: flex-start; font: 700 .7rem/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.gear-go { font-weight: 650; color: var(--link); font-size: .95rem; }
+.gear-grid.radios { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
