@@ -13,6 +13,7 @@
   }
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; }
 body {
   margin: 0; background: var(--bg); color: var(--text);
@@ -120,3 +121,25 @@ footer .motto { font-weight: 700; color: var(--text); font-style: italic; }
 footer a { color: var(--muted); }
 footer ul { list-style: none; padding: 0; margin: 6px 0 0; }
 footer li { margin: 3px 0; }
+
+/* Busiest channels (in the hero, under the live stats) */
+.hero-chans { max-width: 1008px; margin-top: 22px; background: #121b25; border: 1px solid #26313d; border-radius: 10px; padding: 16px 18px 12px; }
+.hero-chans h2 { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--hero-muted); margin: 0 0 4px; font-weight: 600; }
+.hero-chans h2 > span { float: right; text-transform: none; letter-spacing: 0; }
+.hero-chans code { background: #1d2733; color: var(--hero-text); }
+.hero-chans .stats-note { margin: 10px 0 0; }
+.chan-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 32px; }
+@media (max-width: 760px) { .chan-cols { grid-template-columns: 1fr; } .chan-cols > div + div { border-top: 1px solid #26313d; padding-top: 12px; } }
+.chan-empty { color: var(--hero-muted); font-size: .9rem; }
+.chan-empty::before { content: none !important; }
+.chan-rank { list-style: none; margin: 0; padding: 0; counter-reset: c; }
+.chan-rank li { counter-increment: c; display: grid; grid-template-columns: 1.6em minmax(6em, 9.5em) 1fr; grid-template-areas: "n name bar" "n meta meta"; column-gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid #26313d; }
+.chan-rank li:last-child { border-bottom: 0; }
+.chan-rank li::before { content: counter(c); grid-area: n; font: 700 .85rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--accent); }
+.chan-name { grid-area: name; font: 700 1rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-decoration: none; color: var(--hero-text); }
+.chan-name:hover { color: var(--accent); }
+.chan-new { grid-area: name; justify-self: end; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; background: var(--accent); color: var(--accent-ink); border-radius: 4px; padding: 1px 6px; }
+.chan-bar { grid-area: bar; height: 7px; background: #1d2733; border-radius: 4px; overflow: hidden; }
+.chan-bar i { display: block; height: 100%; background: var(--accent); border-radius: 4px; }
+.chan-meta { grid-area: meta; font-size: .82rem; color: var(--hero-muted); }
+.chan-meta b { color: var(--hero-text); font-variant-numeric: tabular-nums; }

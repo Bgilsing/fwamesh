@@ -35,3 +35,21 @@ services:
       - "8091:80"
     volumes:
       - ./landing:/usr/share/nginx/html:ro
+
+  # Ranks the channels observers hear (last 7 days) for the landing page. Reads CoreScope's API only.
+  channel-stats:
+    image: python:3.12-alpine
+    container_name: fwamesh-channel-stats
+    restart: unless-stopped
+    user: "1000:1000"
+    command: ["python", "-u", "/app/channel_stats.py"]
+    environment:
+      TZ: America/Indiana/Indianapolis
+      CORESCOPE_API: http://corescope:3000
+      OUT: /out/channels.json
+      INTERVAL: "600"
+    volumes:
+      - ./stats/channel_stats.py:/app/channel_stats.py:ro
+      - ./landing/data:/out
+    depends_on:
+      - corescope

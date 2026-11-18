@@ -16,6 +16,7 @@ observers (repeater + meshcoretomqtt) ──MQTT:1883──▶ ┌────�
                                                     │ Mosquitto ─▶ ingestor ─▶ SQLite ─▶ web/API/ws   │──:8090──▶ map.<domain>
                                                     └─────────────────────────────────────────────────┘
                                          nginx: static landing page (landing/) ──────────:8091──▶ <domain>
+                                         channel-stats: CoreScope API ─▶ landing/data/channels.json
 ```
 
 | Path | What |
@@ -23,6 +24,7 @@ observers (repeater + meshcoretomqtt) ──MQTT:1883──▶ ┌────�
 | `docker-compose.yml` | Two services: [CoreScope](https://github.com/Kpa-clawbot/CoreScope) (pinned image, bundled Mosquitto, Caddy disabled) and nginx serving `landing/` |
 | `config.example.json` | CoreScope config used by fwamesh.net, with the secrets replaced by placeholders |
 | `landing/` | Static landing page and observer guide. No build step. Site-wide URLs live in `landing/config.js` |
+| `stats/channel_stats.py` | Runs as the `channel-stats` service: every 10 minutes it ranks the channels observers heard in the last 7 days (from CoreScope's API) and writes `landing/data/channels.json` for the landing page |
 | `overrides/build-supervisord-override.sh` | Generates a supervisor config from the pinned CoreScope image that adds `-poll-ms 250`, for lower live-map latency |
 
 ## Run it
@@ -62,6 +64,13 @@ address so CoreScope's per-client limits work.
   Add a Mosquitto password file or ACL if spoofed data becomes a problem.
 - **Landing page live stats** fetch `/api/stats` from the analyzer domain, which needs the landing origin listed
   in `corsAllowedOrigins`.
+- **Busiest channels:** the landing page lists the top 10 channels by unique messages over the last 24 hours and
+  the last 7 days, including automated and test channels. Only channels CoreScope can decrypt are counted, so add
+  local hashtag channels to `hashChannels`
+  (`overrides/merge-channel-names.py` adds the Fort Wayne channels plus [Porchlight](https://github.com/mutiny19/porchlight-openhop-plugin)'s
+  catalogue of channel names seen in real use, about 2,700).
+  Similar to [Porchlight](https://github.com/mutiny19/porchlight-openhop-plugin)'s busiest-channels reply, but built
+  from every observer instead of one repeater.
 - **Backups:** `curl -H "X-API-Key: <apiKey>" localhost:8090/api/backup -o backup.db`. Don't copy the live database.
 
 ## Live-map latency

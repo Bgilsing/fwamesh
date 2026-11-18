@@ -15,6 +15,7 @@
         <a class="brand" href="./">FWA <span>Mesh</span></a>
         <a data-analyzer="/#/live" href="#">Live map</a>
         <a href="#get-started">Get started</a>
+        <a href="#channels">Channels</a>
         <a href="#settings">Settings</a>
         <a href="join.html">Observers</a>
         <a href="https://neimesh.net/">NEIMesh ↗</a>
@@ -43,6 +44,22 @@
         <div><b data-stat="pkts">–</b><span>Packets / 24h</span></div>
       </div>
       <p class="stats-note" id="stats-note" hidden>Live from the FWA Mesh analyzer.</p>
+
+      <div class="hero-chans" id="channels" hidden>
+        <div class="chan-cols">
+          <div>
+            <h2>Busiest channels <span>last 24 hours</span></h2>
+            <ol class="chan-rank" id="chan-rank-24h"></ol>
+          </div>
+          <div>
+            <h2>Busiest channels <span>last <span data-ch="days">7</span> days</span></h2>
+            <ol class="chan-rank" id="chan-rank-7d"></ol>
+          </div>
+        </div>
+        <p class="stats-note">Unique messages heard by FWA Mesh observers. Hashtag channels are open to anyone: add
+          one in your MeshCore app by typing its name. Private channels never appear here.
+          <span id="chan-updated"></span> Channel missing? Tell us its name in <code>#nei</code>.</p>
+      </div>
     </div>
   </div>
 
@@ -287,6 +304,47 @@ region allowf *</code></pre>
           document.querySelectorAll("[data-stat]").forEach(function (e) { e.textContent = f(v[e.getAttribute("data-stat")]); });
           document.getElementById("stats").hidden = false;
           document.getElementById("stats-note").hidden = false;
+        })
+        .catch(function () {});
+    })();
+  </script>
+  <script>
+    // Busiest channels, from data/channels.json (written by the channel-stats service). Hidden if missing.
+    (function () {
+      var base = (window.FWAMESH && window.FWAMESH.analyzerUrl) || "";
+      var esc = function (t) { var d = document.createElement("div"); d.textContent = t; return d.innerHTML; };
+      var ago = function (iso) {
+        var m = Math.max(0, Math.round((Date.now() - Date.parse(iso)) / 60000));
+        if (m < 1) return "just now";
+        if (m < 60) return m + " min ago";
+        var h = Math.round(m / 60); if (h < 48) return h + " h ago";
+        return Math.round(h / 24) + " days ago";
+      };
+      var link = function (c) { return base + "/#/channels/" + encodeURIComponent(c.hash); };
+      fetch("data/channels.json", { cache: "no-cache" })
+        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+        .then(function (d) {
+          var chat = d.channels;
+          var render = function (id, msgs, senders, extra) {
+            var rows = chat.filter(function (c) { return c[msgs] > 0; })
+              .sort(function (a, b) { return b[msgs] - a[msgs] || b[senders] - a[senders]; }).slice(0, 10);
+            var max = rows.length ? rows[0][msgs] : 1;
+            document.getElementById(id).innerHTML = rows.length ? rows.map(function (c) {
+              return '<li><a class="chan-name" href="' + link(c) + '">' + esc(c.name) + "</a>" +
+                (c.new ? ' <span class="chan-new">new</span>' : "") +
+                '<span class="chan-bar"><i style="width:' + Math.max(3, Math.round(100 * c[msgs] / max)) + '%"></i></span>' +
+                '<span class="chan-meta"><b>' + c[msgs].toLocaleString() + (extra && c.capped ? "+" : "") + "</b> msgs · " +
+                c[senders] + " " + (c[senders] === 1 ? "sender" : "senders") +
+                (extra ? "" : " · " + ago(c.lastHeard)) + "</span></li>";
+            }).join("") : '<li class="chan-empty">Quiet so far.</li>';
+            return rows.length;
+          };
+          var shown = render("chan-rank-24h", "messages24h", "senders24h", false) +
+                      render("chan-rank-7d", "messages7d", "senders7d", true);
+          if (!shown) return;
+          document.querySelector("[data-ch=days]").textContent = d.windowDays;
+          document.getElementById("chan-updated").textContent = "Updated " + ago(d.generated) + ".";
+          document.getElementById("channels").hidden = false;
         })
         .catch(function () {});
     })();
