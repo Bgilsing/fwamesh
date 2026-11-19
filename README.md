@@ -1,7 +1,7 @@
 # FWA Mesh
 
 The deployment behind **[fwamesh.net](https://fwamesh.net)**: a live map, packet analyzer and MQTT observer feed
-for the Fort Wayne, Indiana [MeshCore](https://meshcore.co.uk/) LoRa mesh.
+for the Fort Wayne, Indiana [MeshCore](https://meshcore.io/) LoRa mesh.
 
 FWA Mesh is a local resource. The network itself is community-built: see
 [NEIMesh](https://neimesh.net/) (the Northeast Indiana MeshCore co-op), [OKI Mesh](https://okimesh.org/)
