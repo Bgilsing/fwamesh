@@ -156,3 +156,37 @@ main.doc .gear-section h2 { margin-top: 0; }
 .gear-tag { align-self: flex-start; font: 700 .7rem/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
 .gear-go { font-weight: 650; color: var(--link); font-size: .95rem; }
 .gear-grid.radios { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+
+/* Logo in the nav */
+nav .brand { display: flex; align-items: center; padding: 6px 0; }
+nav .brand img { display: block; height: 112px; width: auto; }
+@media (max-width: 560px) { nav { gap: 6px 18px; padding-bottom: 10px; } nav .brand { flex-basis: 100%; } nav .brand img { height: 88px; } }
+
+/* Event announcement (announce.js) */
+.event-bar { background: var(--accent); color: var(--accent-ink); font-size: .92rem; }
+.event-bar .wrap { display: flex; align-items: center; gap: 10px; padding-top: 7px; padding-bottom: 7px; }
+.event-bar-text { min-width: 0; }
+@media (max-width: 560px) { .event-bar { font-size: .85rem; } .event-bar-venue { display: none; } }
+.event-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: currentColor; animation: event-pulse 1.6s ease-in-out infinite; }
+@keyframes event-pulse { 50% { opacity: .3; } }
+.event-bar-btn { margin-left: auto; font: inherit; font-weight: 700; background: none; border: 1px solid currentColor; color: inherit; border-radius: 6px; padding: 3px 12px; cursor: pointer; }
+.event-bar-btn:hover { background: rgba(0,0,0,.12); }
+html.event-open { overflow: hidden; }
+.event-modal { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 16px; }
+.event-backdrop { position: absolute; inset: 0; background: rgba(5, 9, 14, .72); }
+.event-card { position: relative; width: min(560px, 100%); max-height: calc(100vh - 32px); overflow-y: auto; background: var(--hero-bg); color: var(--hero-text); border: 1px solid #26313d; border-top: 4px solid var(--accent); border-radius: 14px; padding: 28px 26px 22px; box-shadow: 0 24px 60px rgba(0,0,0,.45); animation: event-in .2s ease-out; }
+@keyframes event-in { from { transform: translateY(10px); } }
+.event-card h2 { margin: 0 0 10px; padding-right: 28px; }
+.event-card p { color: var(--hero-muted); margin: 0 0 16px; }
+.event-card .kicker { color: var(--accent); margin-bottom: 10px; }
+.event-card a:not(.btn) { color: var(--hero-text); }
+.event-x { position: absolute; top: 12px; right: 14px; font-size: 1.6rem; line-height: 1; background: none; border: 0; color: var(--hero-muted); cursor: pointer; padding: 4px 8px; border-radius: 6px; }
+.event-x:hover { color: var(--hero-text); background: #1d2733; }
+.event-facts { margin: 0 0 20px; display: grid; gap: 10px; background: #121b25; border: 1px solid #26313d; border-radius: 10px; padding: 14px 16px; }
+.event-facts div { display: grid; grid-template-columns: 5.5em 1fr; gap: 10px; }
+.event-facts dt { color: var(--accent); font: 700 .78rem/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: .06em; }
+.event-facts dd { margin: 0; }
+.event-actions { display: flex; flex-wrap: wrap; }
+.event-actions .btn { font: inherit; font-weight: 650; cursor: pointer; background-color: transparent; }
+.event-actions .btn.primary { background: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .event-dot, .event-card { animation: none; } }
