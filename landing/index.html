@@ -17,7 +17,7 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="FWAMESH.net logo: the Fort Wayne skyline linked by mesh nodes, with FWAMESH, NEIMESH, OKIMESH">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="style.css?v=20261120140321">
+  <link rel="stylesheet" href="style.css?v=20261120151956">
   <script src="config.js"></script>
   <script defer src="/u/script.js" data-website-id="f075c9b5-c4b7-4cef-b8c3-381d0124e26e" data-host-url="/u" data-domains="fwamesh.net,www.fwamesh.net"></script>
   <script src="announce.js?v=20261120141215" defer></script>
@@ -254,6 +254,34 @@ region allowf *</code></pre>
       </div>
     </section>
 
+    <section id="run-your-own">
+      <p class="eyebrow">Open source</p>
+      <h2>Run one for your area.</h2>
+      <p class="intro">Everything behind FWA Mesh is free and open source: the live map, the MQTT feed for observers,
+        this site, and the busiest-channels lists. Fork it, swap in your region and branding, and give your
+        community its own view of the mesh.</p>
+      <div class="grid steps">
+        <div class="card">
+          <h3>Fork the project</h3>
+          <p>Grab the code from <a data-umami-event="GitHub click" href="https://github.com/Bgilsing/fwamesh">GitHub</a>. It's a small Docker Compose stack that runs on any
+            Linux server with Docker.</p>
+        </div>
+        <div class="card">
+          <h3>Make it yours</h3>
+          <p>Set your region codes, map center, and site name, then rewrite this page for your area. The
+            <a data-umami-event="GitHub click" href="https://github.com/Bgilsing/fwamesh#readme">README</a> walks through every setting.</p>
+        </div>
+        <div class="card">
+          <h3>Bring in observers</h3>
+          <p>Open your MQTT port and have local observers publish to it. Your map fills in as they come online.</p>
+        </div>
+      </div>
+      <p class="oss-actions">
+        <a class="btn primary" data-umami-event="GitHub click" href="https://github.com/Bgilsing/fwamesh">View on GitHub</a>
+        <span>MIT licensed. Fixes and ideas are welcome as issues or pull requests.</span>
+      </p>
+    </section>
+
     <div class="band">
       <div>
         <h2>Help fill in the map.</h2>
@@ -272,6 +300,7 @@ region allowf *</code></pre>
       <div>
         <div class="motto">When other means fail, the mesh still carries the message.</div>
         <div>FWA Mesh is a volunteer, local resource for the Fort Wayne area and is not affiliated with MeshCore.</div>
+        <div style="margin-top:6px">FWA Mesh is open source. <a data-umami-event="GitHub click" href="https://github.com/Bgilsing/fwamesh">Run one for your area</a>.</div>
         <div style="margin-top:6px">As an Amazon Associate, FWA Mesh earns from qualifying purchases.</div>
       </div>
       <div>

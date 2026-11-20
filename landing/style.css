@@ -190,3 +190,7 @@ html.event-open { overflow: hidden; }
 .event-actions .btn { font: inherit; font-weight: 650; cursor: pointer; background-color: transparent; }
 .event-actions .btn.primary { background: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .event-dot, .event-card { animation: none; } }
+
+/* Open source call-out */
+.oss-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 14px; margin: 20px 0 0; color: var(--muted); }
+.oss-actions .btn { margin: 0; }
