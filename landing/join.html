@@ -129,6 +129,19 @@ enabled = true
 method = "token"
 audience = "mqtt-us-v1.letsmesh.net"</code></pre>
 
+      <h2>Setup with Meshcore Home Assistant Integration</h2>
+      <p>If you have your observer connected to Meshcore's Home Assistant integration, you can feed the FWA Mesh analyzer with these MQTT settings:</p>
+      <table>
+        <tr><th>Server</th><td><code data-mqtt-host>mqtt.fwamesh.net</code></td></tr>
+        <tr><th>Port</th><td><code data-mqtt-port>1883</code></td></tr>
+        <tr><th>Transport</th><td>TCP</td></tr>
+        <tr><th>Use TLS</th><td>Unchecked</td></tr>
+        <tr><th>Username/Password</th><td>None</td></tr>
+        <tr><th>Use Meshcore Auth Token</th><td>Unchecked</td></tr>
+        <tr><th>Payload Mode</th><td>Packet</td></tr>
+        <tr><th>Broker IATA Code</th><td>Your area's code from the list above (Fort Wayne is <code>FWA</code>)</td></tr>
+      </table>
+
       <p class="note">Hiding your node: rename it to start with 🚫 and send an advert. It will be hidden from
         this site's map and node list.</p>
     </section>
