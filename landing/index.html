@@ -19,14 +19,15 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="style.css?v=20261120140321">
   <script src="config.js"></script>
-  <script src="announce.js?v=20261120140303" defer></script>
+  <script defer src="/u/script.js" data-website-id="f075c9b5-c4b7-4cef-b8c3-381d0124e26e" data-host-url="/u" data-domains="fwamesh.net,www.fwamesh.net"></script>
+  <script src="announce.js?v=20261120141215" defer></script>
 </head>
 <body>
   <header class="top">
     <div class="wrap">
       <nav>
         <a class="brand" href="./"><img src="img/fwamesh-logo-960.png" width="218" height="112" alt="FWA Mesh home"></a>
-        <a data-analyzer="/#/live" href="#">Live map</a>
+        <a data-umami-event="Open analyzer" data-umami-event-page="/#/live" data-analyzer="/#/live" href="#">Live map</a>
         <a href="#get-started">Get started</a>
         <a href="gear.html">Gear</a>
         <a href="#channels">Channels</a>
@@ -47,7 +48,7 @@
         <strong>FWA Mesh is the Fort Wayne window into that network</strong>: a live map and packet analyzer fed by
         local observers, supporting the <a href="https://neimesh.net/">NEIMesh</a> co-op that's building coverage across
         Northeast Indiana.</p>
-      <a class="btn primary" data-analyzer="/#/live" href="#">Watch the live map</a>
+      <a class="btn primary" data-umami-event="Open analyzer" data-umami-event-page="/#/live" data-analyzer="/#/live" href="#">Watch the live map</a>
       <a class="btn ghost" href="https://neimesh.net/">Visit NEIMesh.net</a>
       <a class="btn ghost" href="#get-started">Get on the mesh</a>
 
@@ -124,7 +125,7 @@
           <div class="tier fwa">
             <h3>FWA Mesh <span class="scope">· fwamesh.net · Fort Wayne</span></h3>
             <p>This site. A live map, packet analyzer, and MQTT observer feed for the Fort Wayne area, so the
-              community can watch the mesh grow in real time. <a data-analyzer="/#/live" href="#">Open the live map →</a></p>
+              community can watch the mesh grow in real time. <a data-umami-event="Open analyzer" data-umami-event-page="/#/live" data-analyzer="/#/live" href="#">Open the live map →</a></p>
           </div>
           <div class="tier nei">
             <h3>NEIMesh <span class="scope">· neimesh.net · Northeast Indiana</span></h3>
@@ -202,7 +203,7 @@
         <div class="card">
           <h3>Say hello</h3>
           <p>Send an advert, then join <code>#nei</code> and say hi. If an observer hears you, your node shows up on
-            the <a data-analyzer="/#/nodes" href="#">nodes page</a> within a few minutes.</p>
+            the <a data-umami-event="Open analyzer" data-umami-event-page="/#/nodes" data-analyzer="/#/nodes" href="#">nodes page</a> within a few minutes.</p>
         </div>
       </div>
     </section>
@@ -276,8 +277,8 @@ region allowf *</code></pre>
       <div>
         <strong>Fort Wayne</strong>
         <ul>
-          <li><a data-analyzer="/#/live" href="#">Live map</a></li>
-          <li><a data-analyzer="/#/nodes" href="#">Nodes</a></li>
+          <li><a data-umami-event="Open analyzer" data-umami-event-page="/#/live" data-analyzer="/#/live" href="#">Live map</a></li>
+          <li><a data-umami-event="Open analyzer" data-umami-event-page="/#/nodes" data-analyzer="/#/nodes" href="#">Nodes</a></li>
           <li><a href="join.html">Become an observer</a></li>
           <li><a href="gear.html">Mesh gear</a></li>
         </ul>
@@ -347,7 +348,7 @@ region allowf *</code></pre>
               .sort(function (a, b) { return b[msgs] - a[msgs] || b[senders] - a[senders]; }).slice(0, 10);
             var max = rows.length ? rows[0][msgs] : 1;
             document.getElementById(id).innerHTML = rows.length ? rows.map(function (c) {
-              return '<li><a class="chan-name" href="' + link(c) + '">' + esc(c.name) + "</a>" +
+              return '<li><a class="chan-name" data-umami-event="Channel click" data-umami-event-channel="' + esc(c.name) + '" href="' + link(c) + '">' + esc(c.name) + "</a>" +
                 (c.new ? ' <span class="chan-new">new</span>' : "") +
                 '<span class="chan-bar"><i style="width:' + Math.max(3, Math.round(100 * c[msgs] / max)) + '%"></i></span>' +
                 '<span class="chan-meta"><b>' + c[msgs].toLocaleString() + (extra && c.capped ? "+" : "") + "</b> msgs · " +

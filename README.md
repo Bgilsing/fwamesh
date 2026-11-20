@@ -38,10 +38,11 @@ cp config.example.json corescope-data/config.json
 #   edit corescope-data/config.json: apiKey, CARTO key, trustedProxies, regions, branding, map center
 chmod 600 corescope-data/config.json
 ./overrides/build-supervisord-override.sh   # needs Docker; rerun after every CoreScope image upgrade
+cp .env.example .env                        # then fill in the secrets (openssl rand -hex 32)
 docker compose up -d
 ```
 
-- Analyzer: `http://<host>:8090` · Landing page: `http://<host>:8091` · MQTT: `<host>:1883`
+- Analyzer: `http://<host>:8090` · Landing page: `http://<host>:8091` · Analytics: `http://<host>:8092` · MQTT: `<host>:1883`
 - Health: `curl -s localhost:8090/api/healthz`
 - Watch raw MQTT: `docker exec fwamesh-corescope mosquitto_sub -h localhost -t 'meshcore/#' -v`
 
@@ -71,6 +72,12 @@ address so CoreScope's per-client limits work.
   catalogue of channel names seen in real use, about 2,700).
   Similar to [Porchlight](https://github.com/mutiny19/porchlight-openhop-plugin)'s busiest-channels reply, but built
   from every observer instead of one repeater.
+- **Visitor analytics:** [Umami](https://umami.is) (`umami` + `umami-db` services), privacy-friendly with no cookies.
+  Copy `.env.example` to `.env` and fill in the secrets first. The dashboard is on :8092. The landing page loads
+  the tracker and sends visits through its own nginx at `/u/` (`landing-nginx.conf`, `landing-umami-proxy.conf`).
+  That nginx exposes only `/u/script.js` and `/u/api/send`, never the dashboard. After first start, log in as
+  `admin` / `umami`, change the password, add your website, and put its ID in the `<script>` tag on each page.
+  Clicks on gear links, analyzer links, channels and event buttons are tracked as events (`data-umami-event`).
 - **Backups:** `curl -H "X-API-Key: <apiKey>" localhost:8090/api/backup -o backup.db`. Don't copy the live database.
 
 ## Live-map latency

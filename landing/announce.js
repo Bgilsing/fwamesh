@@ -68,8 +68,8 @@
           (EVENT.booth ? "<div><dt>Find us</dt><dd>" + esc(EVENT.booth) + "</dd></div>" : "") +
         "</dl>" +
         '<div class="event-actions">' +
-          '<a class="btn primary" href="' + maps + '" target="_blank" rel="noopener">Get directions</a>' +
-          '<a class="btn ghost" href="' + icsHref() + '" download="fwamesh-hamfest.ics">Add to calendar</a>' +
+          '<a class="btn primary" data-umami-event="Event directions" data-umami-event-event="' + EVENT.id + '" href="' + maps + '" target="_blank" rel="noopener">Get directions</a>' +
+          '<a class="btn ghost" data-umami-event="Event calendar" data-umami-event-event="' + EVENT.id + '" href="' + icsHref() + '" download="fwamesh-hamfest.ics">Add to calendar</a>' +
           '<button type="button" class="btn ghost" data-close>Maybe later</button>' +
         "</div>" +
       "</div>";
