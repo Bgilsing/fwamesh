@@ -25,6 +25,7 @@ observers (repeater + meshcoretomqtt) ──MQTT:1883──▶ ┌────�
 | `config.example.json` | CoreScope config used by fwamesh.net, with the secrets replaced by placeholders |
 | `landing/` | Static landing page and observer guide. No build step. Site-wide URLs live in `landing/config.js` |
 | `stats/channel_stats.py` | Runs as the `channel-stats` service: every 10 minutes it ranks the channels observers heard in the last 7 days (from CoreScope's API) and writes `landing/data/channels.json` for the landing page |
+| `overrides/build-corescope-index.sh` | Generates the analyzer's `index.html` from the pinned CoreScope image, adding the Umami tracker (and page views for its `#/` routes) when `UMAMI_MAP_WEBSITE_ID` is set in `.env` |
 | `overrides/build-supervisord-override.sh` | Generates a supervisor config from the pinned CoreScope image that adds `-poll-ms 250`, for lower live-map latency |
 
 ## Run it
@@ -38,6 +39,7 @@ cp config.example.json corescope-data/config.json
 #   edit corescope-data/config.json: apiKey, CARTO key, trustedProxies, regions, branding, map center
 chmod 600 corescope-data/config.json
 ./overrides/build-supervisord-override.sh   # needs Docker; rerun after every CoreScope image upgrade
+./overrides/build-corescope-index.sh        # analyzer page, with the Umami tracker if set in .env
 cp .env.example .env                        # then fill in the secrets (openssl rand -hex 32)
 docker compose up -d
 ```
@@ -78,6 +80,9 @@ address so CoreScope's per-client limits work.
   That nginx exposes only `/u/script.js` and `/u/api/send`, never the dashboard. After first start, log in as
   `admin` / `umami`, change the password, add your website, and put its ID in the `<script>` tag on each page.
   Clicks on gear links, analyzer links, channels and event buttons are tracked as events (`data-umami-event`).
+  The analyzer is tracked as a second Umami website: set `UMAMI_MAP_WEBSITE_ID`, `UMAMI_TRACKER_URL` and
+  `UMAMI_MAP_DOMAIN` in `.env` and run `overrides/build-corescope-index.sh`. CoreScope switches views with `#/`
+  hashes, which Umami doesn't detect, so the injected snippet reports each hash change as a page view.
 - **Backups:** `curl -H "X-API-Key: <apiKey>" localhost:8090/api/backup -o backup.db`. Don't copy the live database.
 
 ## Live-map latency
@@ -99,7 +104,7 @@ Bump the image tag in `docker-compose.yml` (see [releases](https://github.com/Kp
 then:
 
 ```bash
-./overrides/build-supervisord-override.sh && docker compose up -d
+./overrides/build-supervisord-override.sh && ./overrides/build-corescope-index.sh && docker compose up -d
 ```
 
 ## Credits and license

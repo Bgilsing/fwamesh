@@ -6,6 +6,7 @@ corescope-data/
 
 # Generated from the CoreScope image by overrides/build-supervisord-override.sh
 overrides/supervisord-no-caddy.conf
+overrides/corescope-index.html
 
 # Local-only notes and backups
 OPERATIONS.md
